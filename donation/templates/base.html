@@ -10,7 +10,9 @@
   </head>
   <body>
     <header class="header--main-page">
+
       <nav class="container container--70">
+          {% block header_login %}
         <ul class="nav--actions">
           <li>
             <a href="" class="btn btn--small btn--without-border">Zaloguj</a>
@@ -19,7 +21,7 @@
             <a href="#" class="btn btn--small btn--highlighted">Załóż konto</a>
           </li>
         </ul>
-
+          {% endblock %}
         <ul>
           <li><a href="" class="btn btn--without-border active">Start</a></li>
           <li>
@@ -55,7 +57,16 @@
     {% block content %} {% endblock %}
 
     <footer>
-      {% block extra_footer %} {% endblock %}
+      <div id="contact" class="contact">
+        <h2>Skontaktuj się z nami</h2>
+        <h3>Formularz kontaktowy</h3>
+        <form class="form--contact">
+            <div class="form-group form-group--50"><input type="text" name="name" placeholder="Imię" /></div>
+            <div class="form-group form-group--50"><input type="text" name="surname" placeholder="Nazwisko" /></div>
+            <div class="form-group"><textarea name="message" placeholder="Wiadomość" rows="1"></textarea></div>
+        <button class="btn" type="submit">Wyślij</button>
+        </form>
+      </div>
 
       <div class="bottom-line">
         <span class="bottom-line--copy">Copyright &copy; 2020</span>
