@@ -8,12 +8,18 @@ INSTITUTION_TYPES = ((1, 'fundacja'), (2, 'organizacja pozarzÄ…dowa'), (3, 'zbiÃ
 class Category(models.Model):
     name = models.CharField(max_length=100)
 
+    def __str__(self):
+        return self.name
+
 
 class Institution(models.Model):
     name = models.CharField(max_length=100)
     description = models.TextField()
     type_inst = models.IntegerField(choices=INSTITUTION_TYPES, default=1)
     categories = models.ManyToManyField(Category)
+
+    def __str__(self):
+        return f'{self.name}, typu {self.get_type_inst_display()}'
 
 
 class Donation(models.Model):
