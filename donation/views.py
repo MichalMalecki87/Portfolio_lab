@@ -22,7 +22,12 @@ class LandingPage(View):
 
 class AddDonation(View):
     def get(self, request):
-        return render(request, 'form.html')
+        if request.user.is_authenticated:
+            categories = Category.objects.all()
+            institutions = Institution.objects.all()
+            return render(request, 'form.html', {'categories': categories,
+                                                 'institutions': institutions})
+        return redirect(reverse_lazy('login'))
 
 
 #class Login(View):

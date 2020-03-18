@@ -66,6 +66,7 @@ document.addEventListener("DOMContentLoaded", function() {
       console.log(page);
     }
   }
+
   const helpSection = document.querySelector(".help");
   if (helpSection !== null) {
     new Help(helpSection);
@@ -136,6 +137,7 @@ document.addEventListener("DOMContentLoaded", function() {
       });
     }
   }
+
   document.querySelectorAll(".form-group--dropdown select").forEach(el => {
     new FormSelect(el);
   });
@@ -143,7 +145,7 @@ document.addEventListener("DOMContentLoaded", function() {
   /**
    * Hide elements when clicked on document
    */
-  document.addEventListener("click", function(e) {
+  document.addEventListener("click", function (e) {
     const target = e.target;
     const tagName = target.tagName;
 
@@ -248,8 +250,33 @@ document.addEventListener("DOMContentLoaded", function() {
       this.updateForm();
     }
   }
+
   const form = document.querySelector(".form--steps");
   if (form !== null) {
     new FormSteps(form);
   }
+  let institution_cat = document.querySelectorAll('.category');
+  let checkbox_cat = document.querySelectorAll('[type="checkbox"]');
+  console.log(institution_cat);
+  console.log(checkbox_cat);
+  checkbox_cat.forEach(el => {
+    el.addEventListener('click', el => {
+      let value_lst = [];
+      checkbox_cat.forEach(el =>{
+        if(el.checked === true){
+        value_lst.push(el.value)}
+        });
+      institution_cat.forEach(category => {
+        category.parentElement.parentElement.style.display = 'none';
+        value_lst.forEach(el => {
+          if (category.innerText.includes(el) === true) {
+            category.parentElement.parentElement.style.display = 'block'}
+          if (category.innerText.includes(el) === false) {
+            category.parentElement.parentElement.style.display = 'none'
+          }
+        })
+      })
+
+    })
+  })
 });
