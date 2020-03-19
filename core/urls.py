@@ -20,7 +20,7 @@ from django.contrib.auth import views as auth_views
 from donation.forms import UserLoginForm
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('admin/', admin.site.urls, name='admin'),
     path('', views.LandingPage.as_view(), name='index'),
     path("login/", auth_views.LoginView.as_view(template_name="login.html",
                                                 authentication_form=UserLoginForm), name='login'),

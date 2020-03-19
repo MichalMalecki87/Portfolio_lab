@@ -121,19 +121,6 @@
               </label>
             </div>
             {% endfor %}
-            <div class="form-group form-group--checkbox">
-              <label>
-                <input type="radio" name="organization" value="old" />
-                <span class="checkbox radio"></span>
-                <span class="description">
-                  <div class="title">Fundacja “Dla dzieci"</div>
-                  <div class="subtitle">
-                    Cel i misja: Pomoc osobom znajdującym się w trudnej sytuacji
-                    życiowej.
-                  </div>
-                </span>
-              </label>
-            </div>
 
             <div class="form-group form-group--buttons">
               <button type="button" class="btn prev-step">Wstecz</button>
@@ -172,7 +159,7 @@
               <div class="form-section--column">
                 <h4>Termin odbioru</h4>
                 <div class="form-group form-group--inline">
-                  <label> Data <input type="date" name="data" /> </label>
+                  <label> Data <input type="date" name="date" /> </label>
                 </div>
 
                 <div class="form-group form-group--inline">
@@ -189,7 +176,7 @@
             </div>
             <div class="form-group form-group--buttons">
               <button type="button" class="btn prev-step">Wstecz</button>
-              <button type="button" class="btn next-step">Dalej</button>
+              <button id="form-next" type="button" class="btn next-step">Dalej</button>
             </div>
           </div>
 
@@ -203,14 +190,14 @@
                 <ul>
                   <li>
                     <span class="icon icon-bag"></span>
-                    <span class="summary--text"
-                      >4 worki ubrań w dobrym stanie dla dzieci</span
+                    <span id="bags-contains" class="summary--text"
+                    ><span id="bags">4</span> worki ubrań w dobrym stanie dla dzieci</span
                     >
                   </li>
 
                   <li>
                     <span class="icon icon-hand"></span>
-                    <span class="summary--text"
+                    <span id="for-institution" class="summary--text"
                       >Dla fundacji "Mam marzenie" w Warszawie</span
                     >
                   </li>
@@ -221,19 +208,19 @@
                 <div class="form-section--column">
                   <h4>Adres odbioru:</h4>
                   <ul>
-                    <li>Prosta 51</li>
-                    <li>Warszawa</li>
-                    <li>99-098</li>
-                    <li>123 456 789</li>
+                    <li id="address"></li>
+                    <li id="city"></li>
+                    <li id="postcode"></li>
+                    <li id="phone"></li>
                   </ul>
                 </div>
 
                 <div class="form-section--column">
                   <h4>Termin odbioru:</h4>
                   <ul>
-                    <li>13/12/2018</li>
-                    <li>15:40</li>
-                    <li>Brak uwag</li>
+                    <li id="date"></li>
+                    <li id="time"></li>
+                    <li id="more_info"></li>
                   </ul>
                 </div>
               </div>

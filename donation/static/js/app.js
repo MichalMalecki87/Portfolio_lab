@@ -257,8 +257,6 @@ document.addEventListener("DOMContentLoaded", function() {
   }
   let institution_cat = document.querySelectorAll('.category');
   let checkbox_cat = document.querySelectorAll('[type="checkbox"]');
-  console.log(institution_cat);
-  console.log(checkbox_cat);
   checkbox_cat.forEach(el => {
     el.addEventListener('click', el => {
       let value_lst = [];
@@ -278,5 +276,16 @@ document.addEventListener("DOMContentLoaded", function() {
       })
 
     })
+  });
+  let next_button = document.getElementById('form-next');
+  console.log(next_button)
+  next_button.addEventListener('click', ev => {
+    document.getElementById('address').innerText = document.querySelector('[name="address"]').value
+    document.getElementById('city').innerText = document.querySelector('[name="city"]').value;
+    document.getElementById('postcode').innerText = document.querySelector('[name="postcode"]').value;
+    document.getElementById('phone').innerText = document.querySelector('[name="phone"]').value;
+    document.getElementById('date').innerText = document.querySelector('[name="date"]').value;
+    document.getElementById('time').innerText = document.querySelector('[name="time"]').value;
+    document.getElementById('more_info').innerText = document.querySelector('[name="more_info"]').value;
   })
 });
