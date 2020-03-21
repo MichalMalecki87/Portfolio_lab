@@ -106,7 +106,7 @@
             {% for institution in institutions %}
             <div class="form-group form-group--checkbox" style="display: none">
               <label>
-                <input type="radio" name="organization" value="old" />
+                <input type="radio" name="organization" value="{{ institution.id }}" />
                 <span class="checkbox radio"></span>
                 <span class="description">
                   <div class="title">{{ institution.name }}</div>
@@ -129,7 +129,7 @@
           </div>
 
           <!-- STEP 5 -->
-          <div data-step="4">
+          <div id="address-form" data-step="4">
             <h3>Podaj adres oraz termin odbioru rzecz przez kuriera:</h3>
 
             <div class="form-section form-section--columns">
@@ -191,14 +191,14 @@
                   <li>
                     <span class="icon icon-bag"></span>
                     <span id="bags-contains" class="summary--text"
-                    ><span id="bags">4</span> worki ubrań w dobrym stanie dla dzieci</span
+                    ><span id="bags">4</span> worki, zawierające: <span id="categories"></span></span
                     >
                   </li>
 
                   <li>
                     <span class="icon icon-hand"></span>
                     <span id="for-institution" class="summary--text"
-                      >Dla fundacji "Mam marzenie" w Warszawie</span
+                    >Dla <span id="institution"></span></span
                     >
                   </li>
                 </ul>
