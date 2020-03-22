@@ -8,12 +8,18 @@ INSTITUTION_TYPES = ((1, 'fundacja'), (2, 'organizacja pozarządowa'), (3, 'zbi�
 class Category(models.Model):
     name = models.CharField(max_length=100)
 
+    def __str__(self):
+        return self.name
+
 
 class Institution(models.Model):
     name = models.CharField(max_length=100)
     description = models.TextField()
     type_inst = models.IntegerField(choices=INSTITUTION_TYPES, default=1)
     categories = models.ManyToManyField(Category)
+
+    def __str__(self):
+        return f'{self.name}, typu {self.get_type_inst_display()}'
 
 
 class Donation(models.Model):
@@ -28,3 +34,11 @@ class Donation(models.Model):
     pick_up_time = models.TimeField()
     pick_up_comment = models.TextField()
     user = models.ForeignKey(User, null=True, default=None, on_delete=models.DO_NOTHING)
+    is_taken = models.BooleanField(default=False)
+
+    def __str__(self):
+        if self.is_taken == False:
+            taken = "jeszcze nieodebrany"
+        else:
+            taken = " już odebrany"
+        return f"{self.quantity} worki, od {self.user.username}, {taken}."

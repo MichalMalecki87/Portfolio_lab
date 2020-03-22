@@ -12,29 +12,45 @@
     <header class="header--main-page">
 
       <nav class="container container--70">
-          {% block header_login %}
-        <ul class="nav--actions">
-          <li>
-            <a href="" class="btn btn--small btn--without-border">Zaloguj</a>
-          </li>
-          <li>
-            <a href="#" class="btn btn--small btn--highlighted">Załóż konto</a>
+      {% if user.is_authenticated %}
+          <ul class="nav--actions">
+          <li class="logged-user">
+            Witaj {{ user.first_name }}
+            <ul class="dropdown">
+              <li><a href="#">Profil</a></li>
+              <li><a href="#">Ustawienia</a></li>
+                {% if user.is_superuser %}
+                <li><a href="{% url 'admin:index' %}">Panel administracyjny</a></li>
+                {% endif %}
+              <li><a href="{% url 'logout' %}">Wyloguj</a></li>
+            </ul>
           </li>
         </ul>
-          {% endblock %}
+          {% else %}
+        <ul class="nav--actions">
+          <li>
+            <a href="{% url 'login' %}#login" class="btn btn--small btn--without-border">Zaloguj</a>
+          </li>
+          <li>
+            <a href="{% url 'register' %}#register" class="btn btn--small btn--highlighted">Załóż konto</a>
+          </li>
+        </ul>
+          {% endif %}
         <ul>
-          <li><a href="" class="btn btn--without-border active">Start</a></li>
           <li>
-            <a href="#steps" class="btn btn--without-border">O co chodzi?</a>
-          </li>
-          <li><a href="#about-us" class="btn btn--without-border">O nas</a></li>
-          <li>
-            <a href="#help" class="btn btn--without-border"
-              >Fundacje i organizacje</a
-            >
+              <a href="{% url 'index' %}" class="btn btn--without-border active">Start</a>
           </li>
           <li>
-            <a href="form.html" class="btn btn--without-border">Przekaż dary</a>
+            <a href="{% url 'index' %}#steps" class="btn btn--without-border">O co chodzi?</a>
+          </li>
+          <li>
+              <a href="{% url 'index' %}#about-us" class="btn btn--without-border">O nas</a>
+          </li>
+          <li>
+            <a href="{% url 'index' %}#help" class="btn btn--without-border">Fundacje i organizacje</a>
+          </li>
+          <li>
+            <a href="{% url 'donation' %}#donation-form" class="btn btn--without-border">Przekaż dary</a>
           </li>
           <li>
             <a href="#contact" class="btn btn--without-border">Kontakt</a>
