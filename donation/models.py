@@ -34,3 +34,11 @@ class Donation(models.Model):
     pick_up_time = models.TimeField()
     pick_up_comment = models.TextField()
     user = models.ForeignKey(User, null=True, default=None, on_delete=models.DO_NOTHING)
+    is_taken = models.BooleanField(default=False)
+
+    def __str__(self):
+        if self.is_taken == False:
+            taken = "jeszcze nieodebrany"
+        else:
+            taken = " już odebrany"
+        return f"{self.quantity} worki, od {self.user.username}, {taken}."

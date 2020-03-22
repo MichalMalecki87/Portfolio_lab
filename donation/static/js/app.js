@@ -66,6 +66,7 @@ document.addEventListener("DOMContentLoaded", function() {
       console.log(page);
     }
   }
+
   const helpSection = document.querySelector(".help");
   if (helpSection !== null) {
     new Help(helpSection);
@@ -136,6 +137,7 @@ document.addEventListener("DOMContentLoaded", function() {
       });
     }
   }
+
   document.querySelectorAll(".form-group--dropdown select").forEach(el => {
     new FormSelect(el);
   });
@@ -143,7 +145,7 @@ document.addEventListener("DOMContentLoaded", function() {
   /**
    * Hide elements when clicked on document
    */
-  document.addEventListener("click", function(e) {
+  document.addEventListener("click", function (e) {
     const target = e.target;
     const tagName = target.tagName;
 
@@ -195,9 +197,40 @@ document.addEventListener("DOMContentLoaded", function() {
       // Next step
       this.$next.forEach(btn => {
         btn.addEventListener("click", e => {
-          e.preventDefault();
-          this.currentStep++;
-          this.updateForm();
+          let input_div = this.$form.querySelector('[data-step="' + this.currentStep + '"] div').parentElement;
+          this.input_elements = this.$form.querySelector('[data-step="' + this.currentStep + '"] div').parentElement.querySelectorAll('input')
+          console.log(input_div)
+          console.log(this.input_elements)
+          this.check_lst = [];
+          this.value_lst = [];
+          this.input_elements.forEach( input => {
+            if (this.currentStep === 1 || this.currentStep === 3){
+              this.check_lst.push(input.checked)
+
+            }if(this.currentStep === 2 || this.currentStep === 4){
+              this.value_lst.push(input.value)
+            }
+          });
+          if (this.check_lst.includes(true)){
+            e.preventDefault();
+            this.currentStep++;
+            this.updateForm();
+          }else{
+            if(this.check_lst.length > 0){
+              alert("Proszę uzupełnić wszystkie dane.")
+            }
+          }
+          if (this.value_lst.includes("") !== true && this.value_lst.length > 0){
+            e.preventDefault();
+            this.currentStep++;
+            this.updateForm();
+
+          }else{
+            if (this.value_lst.length > 0){
+              alert("Proszę uzupełnić wszystkie dane.")
+            }
+          }
+
         });
       });
 
@@ -210,8 +243,7 @@ document.addEventListener("DOMContentLoaded", function() {
         });
       });
 
-      // Form submit
-      this.$form.querySelector("form").addEventListener("submit", e => this.submit(e));
+
     }
 
     /**
@@ -248,8 +280,62 @@ document.addEventListener("DOMContentLoaded", function() {
       this.updateForm();
     }
   }
+
   const form = document.querySelector(".form--steps");
   if (form !== null) {
     new FormSteps(form);
   }
+  let institution_cat = document.querySelectorAll('.category');
+  let checkbox_cat = document.querySelectorAll('[type="checkbox"]');
+  checkbox_cat.forEach(el => {
+    el.addEventListener('click', el => {
+      let value_lst = [];
+      checkbox_cat.forEach(el =>{
+        if(el.checked === true){
+        value_lst.push(el.value)}
+        });
+      institution_cat.forEach(category => {
+        category.parentElement.parentElement.style.display = 'none';
+        value_lst.forEach(el => {
+          if (category.innerText.includes(el) === true) {
+            category.parentElement.parentElement.style.display = 'block'}
+          if (category.innerText.includes(el) === false) {
+            category.parentElement.parentElement.style.display = 'none'
+          }
+        })
+      })
+
+    })
+  });
+  let next_button = document.getElementById('form-next');
+  let address_form = document.getElementById('address-form');
+  let address_inputs = address_form.querySelectorAll('input');
+  next_button.addEventListener('click', ev => {
+    document.querySelector('.form--steps-instructions').style.display = 'none';
+    document.getElementById('bags').innerText = document.querySelector('[name="bags"]').value;
+    document.getElementById('address').innerText = document.querySelector('[name="address"]').value;
+    document.getElementById('city').innerText = document.querySelector('[name="city"]').value;
+    document.getElementById('postcode').innerText = document.querySelector('[name="postcode"]').value;
+    document.getElementById('phone').innerText = document.querySelector('[name="phone"]').value;
+    document.getElementById('date').innerText = document.querySelector('[name="date"]').value;
+    document.getElementById('time').innerText = document.querySelector('[name="time"]').value;
+    document.getElementById('more_info').innerText = document.querySelector('[name="more_info"]').value;
+    document.querySelectorAll('[name="organization"]').forEach( el => {
+      if (el.checked === true){
+        document.getElementById('institution').innerText = el.parentElement.querySelector('.title').innerText
+      }
+    });
+    let categories_list = [];
+    checkbox_cat.forEach( checkbox => {
+      if (checkbox.checked === true){
+        categories_list.push(checkbox.parentElement.querySelector('.description').innerText)
+      }
+    });
+    document.getElementById('categories').innerText = categories_list.join(', ')
+    address_inputs.forEach( input =>{
+      if (input.value === '') {
+
+          }
+    });
+  });
 });
