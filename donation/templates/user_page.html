@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %} Potwierdzenie wysłania {% endblock %}
+{% block content %}
+        <div>
+            <h3>Podsumowanie Twojej darowizny</h3>
+
+            <div class="summary">
+              <div class="form-section">
+                <h4>Oddajesz:</h4>
+                <ul>
+                  <li>
+                      <h4>Imię:</h4>
+                    <span class="summary--text"
+                      >{{ user.first_name}}</span
+                    >
+                  </li>
+
+                  <li>
+                      <h4>Nazwisko:</h4>
+                    <span class="summary--text"
+                      >{{ user.last_name }}</span
+                    >
+                  </li>
+                    <li>
+                        <h4>Adres email:</h4>
+                    <span class="summary--text"
+                      >{{ user.username }}</span
+                    >
+                  </li>
+                </ul>
+              </div>
+            </div>
+        </div>
+{% endblock %}
