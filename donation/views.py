@@ -29,8 +29,37 @@ class AddDonation(View):
                                                  'institutions': institutions})
         return redirect(reverse_lazy('login'))
 
+    def post(self, request):
+        quantity = request.POST.get('bags')
+        category = request.POST.getlist('categories')
+        institution = Institution.objects.get(pk=request.POST.get('organization'))
+        address = request.POST.get('address')
+        phone_number = request.POST.get('phone')
+        city = request.POST.get('city')
+        zip_code = request.POST.get('postcode')
+        pick_up_date = request.POST.get('date')
+        pick_up_time = request.POST.get('time')
+        pick_up_comment = request.POST.get('more_info')
+        user = User.objects.get(pk=request.user.id)
+        donation = Donation.objects.create(quantity=quantity, institution=institution,
+                                           address=address, phone_number=phone_number, city=city, zip_code=zip_code,
+                                           pick_up_date=pick_up_date, pick_up_time=pick_up_time,
+                                           pick_up_comment=pick_up_comment,
+                                           user=user)
+        donation.save()
+        for element in category:
+            donation.categories.add(element)
+        return redirect(reverse_lazy('confirmation'))
 
-#class Login(View):
+
+class DonationConfirmation(View):
+    def get(self, request):
+        return render(request, 'form-confirmation.html')
+
+
+
+
+# class Login(View):
 #    def get(self, request):
 #        return render(request, 'login.html')
 #

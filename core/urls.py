@@ -26,5 +26,6 @@ urlpatterns = [
                                                 authentication_form=UserLoginForm), name='login'),
     path("logout/", auth_views.LogoutView.as_view(), name='logout'),
     path('register/', views.Register.as_view(), name='register'),
-    path('add-donation/', views.AddDonation.as_view(), name='donation')
+    path('add-donation/', views.AddDonation.as_view(), name='donation'),
+    path('donation-confirmed/', views.DonationConfirmation.as_view(), name='confirmation')
 ]

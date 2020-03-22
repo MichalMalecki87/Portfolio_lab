@@ -211,8 +211,6 @@ document.addEventListener("DOMContentLoaded", function() {
               this.value_lst.push(input.value)
             }
           });
-          console.log(this.value_lst)
-          console.log(this.check_lst)
           if (this.check_lst.includes(true)){
             e.preventDefault();
             this.currentStep++;
@@ -245,8 +243,7 @@ document.addEventListener("DOMContentLoaded", function() {
         });
       });
 
-      // Form submit
-      this.$form.querySelector("form").addEventListener("submit", e => this.submit(e));
+
     }
 
     /**
