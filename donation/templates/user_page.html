@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %} Dane użytkownika {% endblock %}
+{% block extra_header %}
+      <div class="slogan container container--90">
+          <h2>
+            Dziękujemy za przyłączenie się do naszej akcji!
+          </h2>
+      </div>
+{% endblock %}
+{% block content %}
+    <section class="">
+        <div id="user-summary">
+            <h2>Podsumowanie Twoich danych</h2>
+
+            <div class="">
+              <div class="" style="text-align: center">
+                <ul>
+                    <h2>Imię: {{ user.first_name}}</h2>
+                    <h2>Nazwisko: {{ user.last_name }}</h2>
+                    <h2>Adres email: {{ user.username }}</h2>
+                    <h2>Dotychczas przekazane dary:</h2>
+                </ul>
+              </div>
+            </div>
+        </div>
+        <div class="help--slides active" data-id="1">
+
+
+    <ul class="help--slides-items">
+        {% for donation in donations %}
+
+      <li>
+        <div class="col" style="text-align: center">
+          <div class="title" {% if donation.is_taken == True %}
+              style="opacity: 0.2"
+          {% endif %}>Dla {{ donation.institution.name }},  {{ donation.quantity }}
+              worki zawierające: {% for category in donation.categories.all %}
+                {% if forloop.last %}
+                {{ category }}
+                {% else %}
+                {{category}},
+                {% endif %}{% endfor %}<br>
+                  Data odbioru: {{ donation.pick_up_date }}, o godzinie {{ donation.pick_up_time }}</div>
+
+             </div>
+      </li>
+        {% endfor %}
+    </ul>
+        </div>
+    </section>
+{% endblock %}
