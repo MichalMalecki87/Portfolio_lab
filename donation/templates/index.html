@@ -58,8 +58,9 @@
       <p>kurier przyjedzie w dogodnym terminie</p>
     </div>
   </div>
-
+    {% if not user.is_authenticated %}
   <a href="{% url 'register' %}#register" class="btn btn--large">Załóż konto</a>
+    {% endif %}
 </section>
 
 <section id="about-us" class="about-us">
@@ -105,16 +106,17 @@
             {% endif %}
         {% endfor %}
     </ul>
+
     <!-- Pagination
     <ul class="help--slides-pagination">
       <li><a href="#" class="btn btn--small btn--without-border active" data-page="1">1</a></li>
       <li><a href="#" class="btn btn--small btn--without-border" data-page="2">2</a></li>
       <li><a href="#" class="btn btn--small btn--without-border" data-page="3">3</a></li>
+      <li><a href="#" class="btn btn--small btn--without-border" data-page="4">4</a></li>
+      <li><a href="#" class="btn btn--small btn--without-border" data-page="5">5</a></li>
     </ul>
     -->
   </div>
-
-
   <!-- SLIDE 2 -->
   <div class="help--slides" data-id="2">
     <p>

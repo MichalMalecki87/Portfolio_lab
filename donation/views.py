@@ -1,5 +1,6 @@
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, update_session_auth_hash
+from django.core.paginator import Paginator
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.urls import reverse_lazy
@@ -14,6 +15,9 @@ class LandingPage(View):
         bags_quantity = 0
         institutions_quantity = Institution.objects.count()
         donations = Donation.objects.all()
+        # paginator = Paginator(institutions_lst, 5)
+        # page = request.GET.get('page')
+        # institutions = paginator.get_page(page)
         for donation in donations:
             bags_quantity += donation.quantity
         return render(request, 'index.html', {'bags_quantity': bags_quantity,
@@ -111,8 +115,9 @@ class Register(View):
         if form.is_valid():
             form.save()
             username = form.cleaned_data.get('username')
+            email = username
             raw_password = form.cleaned_data.get('password1')
-            user = authenticate(username=username, password=raw_password)
+            user = authenticate(username=username, password=raw_password, email=email)
             login(request, user)
             return redirect('login')
         return render(request, 'register.html', {'form': form})
