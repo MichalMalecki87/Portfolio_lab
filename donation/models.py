@@ -2,6 +2,8 @@ from django.contrib.auth.models import User
 from django.db import models
 
 # Create your models here.
+from django.db.models.options import Options
+
 INSTITUTION_TYPES = ((1, 'fundacja'), (2, 'organizacja pozarządowa'), (3, 'zbiórka lokalna'))
 
 
@@ -36,8 +38,11 @@ class Donation(models.Model):
     user = models.ForeignKey(User, null=True, default=None, on_delete=models.DO_NOTHING)
     is_taken = models.BooleanField(default=False)
 
+    class Meta:
+        ordering = ('is_taken', 'id')
+
     def __str__(self):
-        if self.is_taken == False:
+        if not self.is_taken:
             taken = "jeszcze nieodebrany"
         else:
             taken = " już odebrany"

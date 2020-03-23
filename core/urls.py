@@ -27,5 +27,8 @@ urlpatterns = [
     path("logout/", auth_views.LogoutView.as_view(), name='logout'),
     path('register/', views.Register.as_view(), name='register'),
     path('add-donation/', views.AddDonation.as_view(), name='donation'),
-    path('donation-confirmed/', views.DonationConfirmation.as_view(), name='confirmation')
+    path('donation-confirmed/', views.DonationConfirmation.as_view(), name='confirmation'),
+    path('user/information/', views.UserPage.as_view(), name='user_page'),
+    path('user/data-change/', views.UserDataChange.as_view(), name='user_data_change'),
+    path('user/password-change/', views.UserPasswordChange.as_view(), name='user_password_change')
 ]

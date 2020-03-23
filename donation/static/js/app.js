@@ -307,35 +307,38 @@ document.addEventListener("DOMContentLoaded", function() {
 
     })
   });
-  let next_button = document.getElementById('form-next');
-  let address_form = document.getElementById('address-form');
-  let address_inputs = address_form.querySelectorAll('input');
-  next_button.addEventListener('click', ev => {
-    document.querySelector('.form--steps-instructions').style.display = 'none';
-    document.getElementById('bags').innerText = document.querySelector('[name="bags"]').value;
-    document.getElementById('address').innerText = document.querySelector('[name="address"]').value;
-    document.getElementById('city').innerText = document.querySelector('[name="city"]').value;
-    document.getElementById('postcode').innerText = document.querySelector('[name="postcode"]').value;
-    document.getElementById('phone').innerText = document.querySelector('[name="phone"]').value;
-    document.getElementById('date').innerText = document.querySelector('[name="date"]').value;
-    document.getElementById('time').innerText = document.querySelector('[name="time"]').value;
-    document.getElementById('more_info').innerText = document.querySelector('[name="more_info"]').value;
-    document.querySelectorAll('[name="organization"]').forEach( el => {
-      if (el.checked === true){
-        document.getElementById('institution').innerText = el.parentElement.querySelector('.title').innerText
-      }
-    });
-    let categories_list = [];
-    checkbox_cat.forEach( checkbox => {
-      if (checkbox.checked === true){
-        categories_list.push(checkbox.parentElement.querySelector('.description').innerText)
-      }
-    });
-    document.getElementById('categories').innerText = categories_list.join(', ')
-    address_inputs.forEach( input =>{
-      if (input.value === '') {
+  if (document.getElementById('form-next')) {
+    let next_button = document.getElementById('form-next');
+    let address_form = document.getElementById('address-form');
+    let address_inputs = address_form.querySelectorAll('input');
+    next_button.addEventListener('click', ev => {
+      document.querySelector('.form--steps-instructions').style.display = 'none';
+      document.getElementById('bags').innerText = document.querySelector('[name="bags"]').value;
+      document.getElementById('address').innerText = document.querySelector('[name="address"]').value;
+      document.getElementById('city').innerText = document.querySelector('[name="city"]').value;
+      document.getElementById('postcode').innerText = document.querySelector('[name="postcode"]').value;
+      document.getElementById('phone').innerText = document.querySelector('[name="phone"]').value;
+      document.getElementById('date').innerText = document.querySelector('[name="date"]').value;
+      document.getElementById('time').innerText = document.querySelector('[name="time"]').value;
+      document.getElementById('more_info').innerText = document.querySelector('[name="more_info"]').value;
+      document.querySelectorAll('[name="organization"]').forEach(el => {
+        if (el.checked === true) {
+          document.getElementById('institution').innerText = el.parentElement.querySelector('.title').innerText
+        }
+      });
 
-          }
+      let categories_list = [];
+      checkbox_cat.forEach(checkbox => {
+        if (checkbox.checked === true) {
+          categories_list.push(checkbox.parentElement.querySelector('.description').innerText)
+        }
+      });
+      document.getElementById('categories').innerText = categories_list.join(', ')
+      address_inputs.forEach(input => {
+        if (input.value === '') {
+
+        }
+      });
     });
-  });
+  }
 });

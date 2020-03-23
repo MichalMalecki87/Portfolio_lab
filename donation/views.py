@@ -1,4 +1,5 @@
-from django.contrib.auth import authenticate, login
+from django.contrib import messages
+from django.contrib.auth import authenticate, login, update_session_auth_hash
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.urls import reverse_lazy
@@ -57,25 +58,47 @@ class DonationConfirmation(View):
         return render(request, 'form-confirmation.html')
 
 
+class UserPage(View):
+    def get(self, request):
+        if request.user:
+            user = request.user
+            donations = Donation.objects.filter(user=user)
+            return render(request, 'user_page.html', {'donations': donations})
+        return redirect(reverse_lazy('login'))
 
 
-# class Login(View):
-#    def get(self, request):
-#        return render(request, 'login.html')
-#
-#    def post(self, request):
-#        username = request.POST.get('email')
-#        password = request.POST.get('password')
-#        user = authenticate(request, username=username, password=password)
-#        if user is None:
-#            if not User.objects.get(username=username):
-#                #przekazać może wiadomość?
-#                message = 'Podany użytkownik nie istnieje, proszę się zarejestrować'
-#            else:
-#                message = 'Podane hasło jest nieprawidłowe'
-#            return redirect(reverse_lazy('register') + '#register')
-#        login(request, user)
-#        return render(request, 'index.html')
+class UserDataChange(View):
+    def get(self, request):
+        user = request.user
+        return render(request, 'user-data-change.html', {'user': user})
+
+    def post(self, request):
+        user = request.user
+        success = user.check_password(request.POST.get('password'))
+        if success:
+            user.email = request.POST.get('user_email')
+            user.username = request.POST.get('user_email')
+            user.first_name = request.POST.get('first_name')
+            user.last_name = request.POST.get('last_name')
+            user.save()
+            message = 'Dane zostały pomyślnie zmienione'
+        else:
+            message = 'Wprowadź poprawne hasło'
+        return render(request, 'user-data-change.html', {'user': user, 'message': message})
+
+
+class UserPasswordChange(View):
+    def get(self, request):
+        form = forms.PasswordChangeForm(request.user)
+        return render(request, 'user-password-change.html', {'form': form})
+
+    def post(self, request):
+        form = forms.PasswordChangeForm(request.user, request.POST)
+        if form.is_valid():
+            user = form.save()
+            update_session_auth_hash(request, user)
+            messages.success(request, 'Your password was successfully updated!')
+            return redirect(reverse_lazy('user_data_change'))
 
 
 class Register(View):
